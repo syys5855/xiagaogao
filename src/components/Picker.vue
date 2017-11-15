@@ -4,7 +4,7 @@
     
     <div style="height:30px; width:100px;position:absolute;border:1px solid #000;top:130px;left:112px;"></div>
     <div class="select" ref="select" :style="selectStyle">
-      <div class="select-item" v-for="item in getItems" :style="item.style">{{item.text}}</div>
+      <div class="select-item" :class="{hidden:setHidden(item.index)}"  v-for="(item,index) in renderData"  :key="index" :style="setItemDeg(item.index)">{{item.value}}</div>
     </div>
   </div>
 </template>
@@ -22,29 +22,35 @@ export default {
       marginY: 0,
       maxRotateX: 0,
       minRotateX: 0,
-      perDeg: 20
+      perDeg: 20,
+      spin: { start: -9, end: 9, branch: 9 }
     };
   },
+  props: {
+    items: {
+      type: Array,
+      default: []
+    },
+    type: {
+      type: String,
+      default: "line"
+    }
+  },
   computed: {
-    getItems() {
-      let per = this.perDeg,
-        index = 0;
-      let items = Array.from({ length: 14 }, () => `item ${index++}`);
-      return items.map((item, index) => {
-        return {
-          text: item,
-          style: {
-            transform: `rotate3d(1,0,0,${-index *
-              per}deg) translate3d(0,0,100px)`
-          }
+    renderData() {
+      let temp = [];
+      for (let k = this.spin.start; k <= this.spin.end; k++) {
+        let data = {
+          value: this.getSpinData(k),
+          index: k
         };
-      });
+        temp.push(data);
+      }
+      return temp;
     }
   },
   mounted() {
-    this.maxRotateX = (1 - this.getItems.length) * this.perDeg;
-    console.log(this.maxRotateX);
-
+    this.maxRotateX = (1 - this.items.length) * this.perDeg;
     this.$el.addEventListener("touchstart", this.touchStart, false);
     this.$el.addEventListener("touchend", this.touchEnd, false);
     this.$el.addEventListener("touchmove", this.touchMove, false);
@@ -71,12 +77,17 @@ export default {
         speed = this.marginY / speedTime;
       if (speedTime <= 300) {
         let a = 1.8;
-        let move = speed * a * (endTime - this.startTime);
+        let move = speed * a * speedTime;
         this.setStyle("end", move);
-        console.log("move add--->", this.marginY, move, 1000 + speedTime);
       } else {
         this.setStyle("end", this.marginY);
       }
+    },
+    setItemDeg(index) {
+      return {
+        transform: `rotate3d(1, 0, 0, ${(-index * 20) %
+          360}deg) translate3d(0px, 0px, 100px)`
+      };
     },
     setStyle(type, move, time = 1000) {
       const deg = 20,
@@ -92,6 +103,10 @@ export default {
           transition: "",
           transform: `rotateX(${-1 * updatDeg}deg)`
         };
+
+        // select deg
+        let endDeg = Math.round(updatDeg / deg);
+        this.updateSpin(Math.abs(endDeg));
       } else if (type === "end") {
         let endDeg = Math.round(move2Deg * move / deg) * deg + this.curDeg;
         endDeg = Math.min(this.minRotateX, Math.max(endDeg, this.maxRotateX));
@@ -100,7 +115,21 @@ export default {
           transition: `transform ${time}ms cubic-bezier(0.19, 1, 0.22, 1)`
         };
         this.curDeg = endDeg;
+
+        console.log(this.items[Math.abs(endDeg) / this.perDeg]);
       }
+    },
+    setHidden(index) {
+      return index < 0 || index > this.items.length - 1;
+    },
+    getSpinData(index) {
+      let items = this.items;
+      index = index % items.length;
+      return items[index >= 0 ? index : index + items.length];
+    },
+    updateSpin(selIndex) {
+      this.spin.start = selIndex - this.spin.branch;
+      this.spin.end = this.spin.start + 2 * this.spin.branch;
     }
   }
 };
@@ -115,6 +144,9 @@ export default {
   position: relative;
   transform-style: preserve-3d;
   transform-origin: center;
+}
+.hidden {
+  display: none;
 }
 .select-item {
   position: absolute;
