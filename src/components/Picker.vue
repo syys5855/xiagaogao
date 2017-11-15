@@ -16,9 +16,12 @@ export default {
       selectStyle: {},
       startX: "",
       startY: "",
+      startTime: "",
       endX: "",
       endY: "",
-      curDeg: 0
+      curDeg: 0,
+      moveDeg: 0,
+      marginY: 0,
     };
   },
   computed: {
@@ -27,14 +30,12 @@ export default {
       let items = Array.from({ length: 9 }, () => `item ${index++}`);
 
       let per = 180 / items.length;
-
       return items.map((item, index) => {
         return {
           text: item,
           style: {
             transform: `rotate3d(1,0,0,${-index *
               per}deg) translate3d(0,0,100px)`
-            // zIndex: items.length - index
           }
         };
       });
@@ -47,33 +48,52 @@ export default {
   },
   methods: {
     touchStart(event) {
-      console.log("start-->", event);
       let touch = event.touches[0];
-      this.startX = touch.clientX;
-      this.startY = touch.clientY;
+      this.startX = touch.pageX;
+      this.startY = touch.pageY;
+      this.startTime = event.timeStamp;
     },
     touchMove(event) {
-      let touch = event.touches[0];
-      let margin = touch.clientY - this.startY;
-      if (Math.abs(margin) < 20) {
-        return;
-      }
-      let endDeg = Math.round(margin / 20) * 20;
-      this.selectStyle = {
-        transform: `rotateX(${-endDeg}deg)`
-      };
+      let touch = event.touches[0],
+        pageX = touch.pageX,
+        pageY = touch.pageY,
+        marginY = pageY - this.startY;
+      this.marginY = marginY;
+      this.setStyle("move", marginY);
     },
     touchEnd(event) {
-      let touch = event.changedTouches[0];
-      let margin = touch.clientY - this.startY;
-      if (Math.abs(margin) < 20) {
-        return;
+      let touch = event.changedTouches[0],
+        endTime = event.timeStamp,
+        speedTime = endTime - this.startTime,
+        speed = this.marginY / speedTime;
+      if (speedTime <= 300) {
+        let a = 1.8;
+        let move = speed * a * (endTime - this.startTime);
+        this.setStyle("end", move);
+        console.log("move add--->", this.marginY, move, 1000 + speedTime);
+      } else {
+        this.setStyle("end", this.marginY);
       }
-      let endDeg = Math.round(margin / 20) * 20;
-      this.selectStyle = {
-        transform: `rotateX(${-endDeg}deg)`
-      };
-      this.curDeg = endDeg;
+    },
+    setStyle(type, move, time = 1000) {
+      const deg = 20,
+        perHeight = 34,
+        move2Deg = deg / perHeight;
+      if (type === "move") {
+        let updatDeg = move2Deg * move;
+        this.selectStyle = {
+          transition: "",
+          transform: `rotateX(${-1 * updatDeg + this.curDeg}deg)`
+        };
+      } else if (type === "end") {
+        let endDeg = Math.round(move2Deg * move / deg) * deg;
+        console.log("endDeg", endDeg);
+        this.selectStyle = {
+          transform: `rotateX(${-1 * endDeg + this.curDeg}deg)`,
+          transition: `transform ${time}ms cubic-bezier(0.19, 1, 0.22, 1)`
+        };
+        this.curDeg -= endDeg;
+      }
     }
   }
 };
@@ -82,18 +102,16 @@ export default {
 <style scoped>
 .select {
   width: 100px;
-  height: 30px;
+  height: 34px;
   /* border: 1px solid #ccc; */
   margin: 100px auto;
   position: relative;
   transform-style: preserve-3d;
   transform-origin: center;
-  transform: rotateX(60deg);
-  transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .select-item {
   position: absolute;
-  height: 30px;
+  height: 34px;
   left: 0;
   top: 0;
   backface-visibility: hidden;
