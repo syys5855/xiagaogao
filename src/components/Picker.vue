@@ -17,19 +17,19 @@ export default {
       startX: "",
       startY: "",
       startTime: "",
-      endX: "",
-      endY: "",
       curDeg: 0,
       moveDeg: 0,
       marginY: 0,
+      maxRotateX: 0,
+      minRotateX: 0,
+      perDeg: 20
     };
   },
   computed: {
     getItems() {
-      let index = 0;
-      let items = Array.from({ length: 9 }, () => `item ${index++}`);
-
-      let per = 180 / items.length;
+      let per = this.perDeg,
+        index = 0;
+      let items = Array.from({ length: 14 }, () => `item ${index++}`);
       return items.map((item, index) => {
         return {
           text: item,
@@ -42,6 +42,9 @@ export default {
     }
   },
   mounted() {
+    this.maxRotateX = (1 - this.getItems.length) * this.perDeg;
+    console.log(this.maxRotateX);
+
     this.$el.addEventListener("touchstart", this.touchStart, false);
     this.$el.addEventListener("touchend", this.touchEnd, false);
     this.$el.addEventListener("touchmove", this.touchMove, false);
@@ -80,19 +83,23 @@ export default {
         perHeight = 34,
         move2Deg = deg / perHeight;
       if (type === "move") {
-        let updatDeg = move2Deg * move;
+        let updatDeg = move2Deg * move + this.curDeg;
+        updatDeg = Math.min(
+          this.minRotateX,
+          Math.max(updatDeg, this.maxRotateX)
+        );
         this.selectStyle = {
           transition: "",
-          transform: `rotateX(${-1 * updatDeg + this.curDeg}deg)`
+          transform: `rotateX(${-1 * updatDeg}deg)`
         };
       } else if (type === "end") {
-        let endDeg = Math.round(move2Deg * move / deg) * deg;
-        console.log("endDeg", endDeg);
+        let endDeg = Math.round(move2Deg * move / deg) * deg + this.curDeg;
+        endDeg = Math.min(this.minRotateX, Math.max(endDeg, this.maxRotateX));
         this.selectStyle = {
-          transform: `rotateX(${-1 * endDeg + this.curDeg}deg)`,
+          transform: `rotateX(${-1 * endDeg}deg)`,
           transition: `transform ${time}ms cubic-bezier(0.19, 1, 0.22, 1)`
         };
-        this.curDeg -= endDeg;
+        this.curDeg = endDeg;
       }
     }
   }
