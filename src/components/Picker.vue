@@ -56,6 +56,12 @@ export default {
     this.$el.addEventListener("touchend", this.touchEnd, false);
     this.$el.addEventListener("touchmove", this.touchMove, false);
   },
+  beforeDestroy (){
+    this.$el.removeEventListener('touchstart',this.touchStart);
+    this.$el.removeEventListener('touchend',this.touchEnd);
+    this.$el.removeEventListener('touchmove',this.touchMove);
+    
+  },
   methods: {
     touchStart(event) {
       let touch = event.touches[0];
@@ -120,7 +126,6 @@ export default {
         };
         this.curDeg = endDeg;
         this.value = this.items[Math.abs(endDeg) / this.perDeg];
-        // console.log(this.items[Math.abs(endDeg) / this.perDeg]);
       }
     },
     setHidden(index) {

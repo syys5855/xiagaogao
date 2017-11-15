@@ -10,7 +10,7 @@ export default {
   components: { Picker },
   computed: {
     getItems() {
-      return Array.from({ length: 18 }, (val, index) => `item ${index++}`);
+      return Array.from({ length: 60 }, (val, index) => `item ${index++}`);
     }
   }
 };
