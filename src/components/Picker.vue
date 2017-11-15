@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>hello world</h1>
+    <h1>hello world {{value}}</h1>
     
     <div style="height:30px; width:100px;position:absolute;border:1px solid #000;top:130px;left:112px;"></div>
     <div class="select" ref="select" :style="selectStyle">
@@ -23,6 +23,7 @@ export default {
       maxRotateX: 0,
       minRotateX: 0,
       perDeg: 20,
+      value: "",
       spin: { start: -9, end: 9, branch: 9 }
     };
   },
@@ -63,6 +64,9 @@ export default {
       this.startTime = event.timeStamp;
     },
     touchMove(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
       let touch = event.touches[0],
         pageX = touch.pageX,
         pageY = touch.pageY,
@@ -115,8 +119,8 @@ export default {
           transition: `transform ${time}ms cubic-bezier(0.19, 1, 0.22, 1)`
         };
         this.curDeg = endDeg;
-
-        console.log(this.items[Math.abs(endDeg) / this.perDeg]);
+        this.value = this.items[Math.abs(endDeg) / this.perDeg];
+        // console.log(this.items[Math.abs(endDeg) / this.perDeg]);
       }
     },
     setHidden(index) {
