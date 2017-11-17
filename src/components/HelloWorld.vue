@@ -1,6 +1,13 @@
 <template>
   <div class="hello">
-    <h1>hello world</h1>
+    <ul>
+      <li>
+        <router-link to="/scroll">scroll</router-link>
+      </li>
+      <li>
+        <router-link to="/picker">picker</router-link>
+      </li>
+    </ul>
   </div>
 </template>
 

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Scroll from '@/components/Scroll'
 import Picker from '@/view/Picker';
+import Audio from '@/components/Audio';
 Vue.use(Router)
 
 export default new Router({
@@ -18,6 +19,10 @@ export default new Router({
         {
             path: '/picker',
             component: Picker
+        },
+        {
+            path: '/audio',
+            component: Audio
         }
     ]
 })

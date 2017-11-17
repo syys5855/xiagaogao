@@ -56,11 +56,10 @@ export default {
     this.$el.addEventListener("touchend", this.touchEnd, false);
     this.$el.addEventListener("touchmove", this.touchMove, false);
   },
-  beforeDestroy (){
-    this.$el.removeEventListener('touchstart',this.touchStart);
-    this.$el.removeEventListener('touchend',this.touchEnd);
-    this.$el.removeEventListener('touchmove',this.touchMove);
-    
+  beforeDestroy() {
+    this.$el.removeEventListener("touchstart", this.touchStart);
+    this.$el.removeEventListener("touchend", this.touchEnd);
+    this.$el.removeEventListener("touchmove", this.touchMove);
   },
   methods: {
     touchStart(event) {
@@ -102,7 +101,7 @@ export default {
     setStyle(type, move, time = 1000) {
       const deg = 20,
         perHeight = 34,
-        move2Deg = deg / perHeight;
+        move2Deg = deg / perHeight; //记录对应的角度转化
       if (type === "move") {
         let updatDeg = move2Deg * move + this.curDeg;
         updatDeg = Math.min(
@@ -137,6 +136,7 @@ export default {
       return items[index >= 0 ? index : index + items.length];
     },
     updateSpin(selIndex) {
+      // 计算开始与结尾,会触发计算属性 renderData
       this.spin.start = selIndex - this.spin.branch;
       this.spin.end = this.spin.start + 2 * this.spin.branch;
     }
