@@ -1,18 +1,24 @@
 <template>
     <div class="swiper-wrap">
-        <swiper :items="items">""</swiper>
+        <!-- <swiper :items="items">
+            <swiper-item v-for="(item,index) in items" :key="index" :swiper-item-index="index">
+                {{item}}
+            </swiper-item>
+        </swiper> -->
+        <swiper :items="items"></swiper>
     </div>
 </template>
 
 <script>
 import Swiper from "@/components/Swiper";
+import SwiperItem from "@/components/SwiperItem";
 export default {
   data() {
     return {
-      items: [1, 2, 3, 4]
+      items: ["item1", "item2", "item3", "item4", "item5"]
     };
   },
-  components: { Swiper }
+  components: { Swiper, SwiperItem }
 };
 </script>
 

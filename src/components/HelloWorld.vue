@@ -7,6 +7,9 @@
       <li>
         <router-link to="/picker">picker</router-link>
       </li>
+      <li>
+        <router-link to="/swiper">swiper</router-link>
+      </li>
     </ul>
   </div>
 </template>
