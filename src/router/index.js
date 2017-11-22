@@ -5,6 +5,8 @@ import Scroll from '@/components/Scroll'
 import Picker from '@/view/Picker';
 import Audio from '@/components/Audio';
 import Swiper from '@/view/Swiper';
+import Swiper2 from '@/view/Swiper2';
+
 Vue.use(Router)
 
 export default new Router({
@@ -28,6 +30,10 @@ export default new Router({
         {
             path: '/swiper',
             component: Swiper
+        },
+        {
+            path: '/swiper2',
+            component: Swiper2
         }
     ]
 })

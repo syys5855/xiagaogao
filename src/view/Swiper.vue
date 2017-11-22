@@ -1,31 +1,24 @@
 <template>
-    <div class="swiper-wrap">
-        <!-- <swiper :items="items">
-            <swiper-item v-for="(item,index) in items" :key="index" :swiper-item-index="index">
-                {{item}}
-            </swiper-item>
-        </swiper> -->
-        <swiper :items="items"></swiper>
-    </div>
+  <swiper :options="swiperOption"  ref="mySwiper" style="height:200px;border:1px solid #ccc;">
+    <!-- slides -->
+    <swiper-slide>I'm Slide 1</swiper-slide>
+    <swiper-slide>I'm Slide 2</swiper-slide>
+  </swiper>
 </template>
 
 <script>
-import Swiper from "@/components/Swiper";
-import SwiperItem from "@/components/SwiperItem";
 export default {
-  data() {
+  data(){
     return {
-      items: ["item1", "item2", "item3", "item4", "item5"]
-    };
-  },
-  components: { Swiper, SwiperItem }
-};
+      swiperOption:{
+        autoPlay:0,
+        loop:false
+      }
+    }
+  }
+}
 </script>
 
-<style scoped>
-.swiper-wrap {
-  width: 100%;
-  height: 200px;
-  border: 1px solid red;
-}
+<style>
+
 </style>

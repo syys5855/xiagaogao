@@ -1,6 +1,9 @@
 <template>
-    <div class="my-swiper" :style="swiperStyle" ref="swiper"  @touchstart="touchStart" @touchmove.prevent.stop="touchMove" @touchend="touchEnd">
-        <slot></slot>
+    <div class="swiper" :style="swiperStyle" ref="swiper"  @touchstart="touchStart" @touchmove.prevent.stop="touchMove" @touchend="touchEnd">
+        <!-- <div class="swiper-item" v-for="(item,index) in renderData" :key="index" :style="getSwiperItemStyle(item.index)">{{item.data}}</div> -->
+        <swiper-item v-for="(item,index) in renderData" :key="index" :swiper-item-index="item.index">
+            {{item.data}}
+        </swiper-item>
     </div>
 </template>
 
@@ -26,22 +29,21 @@ export default {
         end: 1,
         interval: 2
       },
-      activeIndex: 0,
-      items: []
+      activeIndex: 0
     };
   },
   props: {
-    // items: {
-    //   type: Array,
-    //   default: []
-    // },
+    items: {
+      type: Array,
+      default: []
+    },
     selectIndex: {
       type: Number,
       default: 0
     },
     isLoop: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   computed: {
@@ -114,9 +116,11 @@ export default {
         this.swiper.end = this.swiper.start + this.swiper.interval;
       }
     },
-    getSwiperIndex(index) {
+    getSwiperData(index) {
       index = index % this.items.length;
-      return index >= 0 ? index % this.items.length : index + this.items.length;
+      return this.items[
+        index >= 0 ? index % this.items.length : index + this.items.length
+      ];
     }
   },
   created() {
@@ -128,24 +132,14 @@ export default {
     this.el = swiper;
     this.width = parseInt(width);
     this.height = parseInt(height);
-    this.maxWidth = -this.width * (swiper.children.length - 1);
+    this.maxWidth = -this.width * (this.items.length - 1);
     this.minWidth = 0;
-    this.items = this.el.children;
-    // .appendChild(_.head(this.$slots.default))
-    // console.log(this.$slots);
-  },
-  render: createElement => {
-    console.log("render");
-    debugger;
-    let swiperItems = this.$slots.default;
-    return createElement("div", createElement(swiperItems));
   }
 };
 </script>
 
 <style lang="css" scoped>
-.my-swiper {
-  display: flex;
+.swiper {
   position: relative;
   width: 100%;
   height: 100%;

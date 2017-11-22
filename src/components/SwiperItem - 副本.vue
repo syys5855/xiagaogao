@@ -1,5 +1,5 @@
 <template>
-    <div class="my-swiper-item" ref="swiperItem" :style="getSwiperItemStyle">
+    <div class="swiper-item" :style="getSwiperItemStyle">
         <slot></slot>
     </div>
 </template>
@@ -12,22 +12,20 @@ export default {
         left: `${this.swiperItemIndex * 100}%`
       };
     }
-  },
-  mounted(){
   }
 };
 </script>
 
 <style scoped>
-.my-swiper-item {
-  position: relative;
+.swiper-item {
+  position: absolute;
+  left: 0;
+  top: 0;
   display: flex;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: space-around;
   border: 1px solid #ccc;
-  flex-shrink:0;
 }
-
 </style>
