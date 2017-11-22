@@ -6,6 +6,9 @@
       <my-swiper-item style="background:#ce93d8; color:white;">3</my-swiper-item>
       <my-swiper-item style="background:#f44336; color:white;">4</my-swiper-item>
       <my-swiper-item style="background:#7c4dff; color:white;">5</my-swiper-item>
+      <my-swiper-item style="background:#c74dff; color:white;">6</my-swiper-item>
+      <my-swiper-item style="background:#7cdf4f; color:white;">7</my-swiper-item>
+      
     </my-swiper>
   </div>
 </template>

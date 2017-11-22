@@ -20,7 +20,7 @@ export default Vue.component('my-swiper', {
     props: {
         isLoop: {
             type: Boolean,
-            default: false
+            default: true
         }
     },
     methods: {
