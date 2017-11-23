@@ -10,6 +10,9 @@
       <li>
         <router-link to="/swiper">swiper</router-link>
       </li>
+      <li>
+        <router-link to="/swiper2">my-swiper</router-link>
+      </li>
     </ul>
   </div>
 </template>
