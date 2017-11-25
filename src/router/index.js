@@ -6,7 +6,7 @@ import Picker from '@/view/Picker';
 import Audio from '@/components/Audio';
 import Swiper from '@/view/Swiper';
 import Swiper2 from '@/view/Swiper2';
-
+import MyLoad from '@/view/MyLoad';
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +34,10 @@ export default new Router({
         {
             path: '/swiper2',
             component: Swiper2
+        },
+        {
+            path: '/my-load',
+            component: MyLoad
         }
     ]
 })

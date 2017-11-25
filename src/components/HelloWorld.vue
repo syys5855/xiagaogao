@@ -10,6 +10,9 @@
       <li>
         <router-link to="/swiper">swiper</router-link>
       </li>
+       <li>
+        <router-link to="/my-load">my-load</router-link>
+      </li>
     </ul>
   </div>
 </template>
