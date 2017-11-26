@@ -5,10 +5,10 @@
         <router-link to="/scroll">scroll</router-link>
       </li>
       <li>
-        <router-link to="/picker">picker</router-link>
+        <router-link to="/picker">my-picker</router-link>
       </li>
       <li>
-        <router-link to="/swiper">swiper</router-link>
+        <router-link to="/swiper2">my-swiper</router-link>
       </li>
        <li>
         <router-link to="/my-load">my-load</router-link>
