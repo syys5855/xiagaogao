@@ -84,7 +84,7 @@ export default {};
   0%,25%{
     transform: rotateZ(135deg);
   }
-  75%,100%{
+  100%{
     transform: rotateZ(495deg);
   }
 }
@@ -96,8 +96,7 @@ export default {};
   25%,37.5%{
     transform: rotateZ(45deg);
   }
-
-  50%,100%{
+  62.5%,100%{
     transform: rotateZ(225deg);
   }
 }
