@@ -83,4 +83,5 @@ export default {
     transform: rotateZ(360deg);
   }
 }
+
 </style>

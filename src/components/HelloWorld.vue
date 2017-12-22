@@ -13,24 +13,34 @@
       <li>
         <router-link to="/swiper2">my-swiper</router-link>
       </li>
+      <li>
+        <router-link to="/loading">loading</router-link>
+      </li>
+      <li>
+      <router-link to="/decorator" tag="a">decorator</router-link>
+      </li>
+      <li>
+        <router-link to="/diff">diff</router-link>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  data () {
+  name: "HelloWorld",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+      msg: "Welcome to Your Vue.js App"
+    };
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {

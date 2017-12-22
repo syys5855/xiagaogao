@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .block {
+            width: 100px;
+            height: 100px;
+            animation: blockMove 10000ms steps(5, start);
+        }
+        
+        @keyframes blockMove {
+            0% {
+                background: yellow;
+            }
+            50% {
+                background: green;
+            }
+            100% {
+                background: red;
+            }
+        }
+        
+        .wrap {
+            display: grid;
+            border: 1px solid #ccc;
+            grid-template-rows: repeat(3, 100px);
+            /* grid-column: line1 line2 line3; */
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .item {
+            /* height: 50px; */
+            /* grid-column-start: line2;
+            grid-column-end: line3; */
+        }
+        
+        .item:nth-child(1) {
+            background-color: #f00;
+            /* grid-column: 100px; */
+            grid-column: 2fr;
+        }
+        
+        .item:nth-child(2) {
+            background-color: orange;
+        }
+        
+        .item:nth-child(3) {
+            background-color: yellow;
+        }
+        
+        .item:nth-child(4) {
+            background-color: green;
+        }
+        
+        .item:nth-child(5) {
+            background-color: purple;
+        }
+        
+        .item:nth-child(6) {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="block">
+
+    </div> -->
+    <!-- <audio src="http://developer.mozilla.org/@api/deki/files/2926/=AudioTest_(1).ogg" controls="controls" id="audio"></audio> -->
+
+
+    <div class="wrap">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+    </div>
+</body>
+<script>
+    let de = () => {
+        let play = document.querySelector("#audio");
+        let buffered = play.buffered;
+
+        play.oncanplay = function(...params) {
+            console.log('oncanplay--->', params);
+        }
+
+        play.oncanplaythrough = function(...params) {
+            console.log('oncanplaythrough--->', params);
+        }
+
+        play.ondurationchange = function(...params) {
+            console.log('ondurationchange--->', params);
+        }
+
+        setTimeout(() => {
+            new Image().src = "./src/assets/cover.jpg";
+            var script = document.createElement('script');
+            script.src = './src/main.js';
+            document.head.appendChild(script);
+        }, 2000);
+
+    }
+</script>
+
+</html>

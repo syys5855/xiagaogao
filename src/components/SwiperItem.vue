@@ -28,6 +28,7 @@ export default {
   justify-content: space-around;
   border: 1px solid #ccc;
   flex-shrink:0;
+  box-sizing: border-box;
 }
 
 </style>

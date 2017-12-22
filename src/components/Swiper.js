@@ -108,17 +108,17 @@ export default Vue.component('my-swiper', {
         }
         this.activeIndex = 0;
     },
-    render: function(createElement) {
+    render: function(h) {
         let swiperItems = this.$slots.default,
             lastItem, firstItem, showSwiperItems;
         if (this.isLoop) {
-            lastItem = deepClone(_.last(swiperItems), createElement);
-            firstItem = deepClone(_.first(swiperItems), createElement);
+            lastItem = deepClone(_.last(swiperItems), h);
+            firstItem = deepClone(_.first(swiperItems), h);
             showSwiperItems = [lastItem, swiperItems, firstItem];
         } else {
             showSwiperItems = swiperItems;
         }
-        return createElement(
+        return h(
             'div', {
                 class: 'my-swiper',
                 on: {
@@ -130,6 +130,19 @@ export default Vue.component('my-swiper', {
                 style: this.swiperStyle
             }, showSwiperItems
         );
+
+        // return ( <
+        //     div class = {
+        //         { "my-swiper": true }
+        //     }
+        //     style = { this.swiperStyle }
+        //     onTouchstart = { this.touchStart }
+        //     onTouchmove = { this.touchMove }
+        //     onTouchend = { this.touchEnd } >
+
+        //     { showSwiperItems } <
+        //     /div>
+        // )
     },
 });
 
