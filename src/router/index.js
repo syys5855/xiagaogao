@@ -8,7 +8,7 @@ import Swiper from '@/view/Swiper';
 import Swiper2 from '@/view/Swiper2';
 import Loading from '@/view/loading';
 import Decorator from '@/view/decorator';
-import Diff from '@view/diff';
+import Diff from '@/view/diff';
 Vue.use(Router)
 
 export default new Router({
