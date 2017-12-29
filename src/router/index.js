@@ -9,6 +9,9 @@ import Swiper2 from '@/view/Swiper2';
 import Loading from '@/view/loading';
 import Decorator from '@/view/decorator';
 import Diff from '@/view/diff';
+import Mvvm from '@/view/mvvm';
+import Tree from '@/view/tree';
+import Fetch from '@/view/fetch';
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +48,15 @@ export default new Router({
         }, {
             path: '/diff',
             component: Diff
+        }, {
+            path: '/mvvm',
+            component: Mvvm
+        }, {
+            path: '/tree',
+            component: Tree
+        }, {
+            path: '/fetch',
+            component: Fetch
         }
     ]
 })

@@ -25,6 +25,15 @@
       <li>
         <router-link to="/diff">diff</router-link>
       </li>
+       <li>
+        <router-link to="/mvvm">mvvm</router-link>
+      </li>
+      <li>
+        <router-link to="/tree">tree</router-link>
+      </li>
+      <li>
+        <router-link to="fetch">fetch</router-link>
+      </li>
     </ul>
   </div>
 </template>
